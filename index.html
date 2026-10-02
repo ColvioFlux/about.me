@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Colvio — Developer Portfolio</title>
+
+    <meta
+        name="description"
+        content="Colvio — Game developer, 3D modeler, mod developer, and entrepreneur."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #07080b;
+            color: #f5f5f5;
+            font-family: "Inter", sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        /* =========================
+           ANIMATED BACKGROUND
+        ========================= */
+
+        #network {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .background-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(
+                    circle at 50% 20%,
+                    rgba(255,255,255,0.045),
+                    transparent 40%
+                ),
+                linear-gradient(
+                    to bottom,
+                    rgba(7,8,11,0.45),
+                    rgba(7,8,11,0.78)
+                );
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20;
+
+            background: rgba(7,8,11,0.68);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .nav-container {
+            width: min(1100px, calc(100% - 40px));
+            margin: auto;
+
+            height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #a7a7ad;
+            font-size: 14px;
+            font-weight: 500;
+
+            transition:
+                color 0.25s ease,
+                transform 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           GENERAL
+        ========================= */
+
+        main,
+        section,
+        footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            width: min(1050px, calc(100% - 40px));
+            margin: auto;
+        }
+
+        section {
+            padding: 115px 0;
+        }
+
+        .section-label {
+            color: #888b94;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 22px;
+        }
+
+        .section-text {
+            color: #a4a5ac;
+            max-width: 720px;
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            padding-top: 90px;
+        }
+
+        .hero-content {
+            width: min(850px, 100%);
+        }
+
+        .eyebrow {
+            color: #9a9ca4;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(70px, 15vw, 150px);
+            line-height: 0.85;
+            letter-spacing: -8px;
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            font-family: "Playfair Display", serif;
+            font-style: italic;
+            font-weight: 700;
+        }
+
+        .hero-sub {
+            max-width: 650px;
+            margin: 30px auto 0;
+
+            color: #9c9da5;
+            font-size: clamp(15px, 2vw, 18px);
+        }
+
+
+        /* =========================
+           HERO ANIMATION
+        ========================= */
+
+        .hero .eyebrow {
+            animation: heroFade 0.9s ease forwards;
+        }
+
+        .hero h1 {
+            animation:
+                heroTitle 1s cubic-bezier(.22,1,.36,1) 0.1s both;
+        }
+
+        .hero-sub {
+            animation:
+                heroFade 1s ease 0.25s both;
+        }
+
+        .hero .project-button {
+            animation:
+                heroFade 1s ease 0.4s both;
+        }
+
+        @keyframes heroFade {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heroTitle {
+            from {
+                opacity: 0;
+                transform:
+                    translateY(30px)
+                    scale(0.94);
+                filter: blur(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0)
+                    scale(1);
+                filter: blur(0);
+            }
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .button {
+            position: relative;
+            overflow: hidden;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            margin-top: 30px;
+
+            padding: 14px 22px;
+
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 10px;
+
+            background: rgba(255,255,255,0.07);
+
+            color: #fff;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            transition:
+                transform 0.3s ease,
+                background 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .button::before {
+            content: "";
+
+            position: absolute;
+            top: 0;
+            left: -120%;
+
+            width: 80%;
+            height: 100%;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.18),
+                transparent
+            );
+
+            transform: skewX(-20deg);
+
+            transition: left 0.7s ease;
+        }
+
+        .button:hover::before {
+            left: 140%;
+        }
+
+        .button:hover {
+            transform: translateY(-4px) scale(1.02);
+
+            background: rgba(255,255,255,0.11);
+            border-color: rgba(255,255,255,0.28);
+
+            box-shadow:
+                0 12px 35px rgba(0,0,0,0.35),
+                0 0 25px rgba(255,255,255,0.04);
+        }
+
+        .button:active {
+            transform: translateY(-1px) scale(0.99);
+        }
+
+        .project-button {
+            padding: 15px 24px;
+            font-size: 15px;
+        }
+
+        .project-button .arrow {
+            display: inline-block;
+            font-size: 20px;
+
+            transition:
+                transform 0.3s ease;
+        }
+
+        .project-button:hover .arrow {
+            transform: translateX(6px);
+        }
+
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 70px;
+            align-items: start;
+        }
+
+        .about-text {
+            color: #a4a5ac;
+            font-size: 16px;
+        }
+
+        .about-text p + p {
+            margin-top: 18px;
+        }
+
+
+        /* =========================
+           SKILLS
+        ========================= */
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .skill {
+            padding: 10px 14px;
+
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 999px;
+
+            background: rgba(255,255,255,0.035);
+
+            color: #c4c5ca;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .skill:hover {
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(255,255,255,0.17);
+        }
+
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 45px;
+        }
+
+        .card {
+            position: relative;
+
+            padding: 28px;
+
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.055),
+                    rgba(255,255,255,0.018)
+                );
+
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+
+            transition:
+                transform 0.35s ease,
+                border-color 0.35s ease,
+                background 0.35s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+
+            border-color: rgba(255,255,255,0.18);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.08),
+                    rgba(255,255,255,0.025)
+                );
+        }
+
+        .card-number {
+            color: #6f7179;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .card p {
+            color: #94969e;
+            font-size: 14px;
+        }
+
+        .card-tag {
+            display: inline-block;
+
+            margin-top: 22px;
+            padding: 6px 10px;
+
+            border-radius: 6px;
+
+            background: rgba(255,255,255,0.06);
+
+            color: #aaaab1;
+
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+
+        /* =========================
+           STAGGERED CARD ANIMATION
+        ========================= */
+
+        .grid .card:nth-child(1) {
+            transition-delay: 0.05s;
+        }
+
+        .grid .card:nth-child(2) {
+            transition-delay: 0.15s;
+        }
+
+        .grid .card:nth-child(3) {
+            transition-delay: 0.25s;
+        }
+
+
+        /* =========================
+           ENTREPRENEURSHIP
+        ========================= */
+
+        .business {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+
+            margin-top: 45px;
+        }
+
+        .business .card:nth-child(1) {
+            transition-delay: 0.05s;
+        }
+
+        .business .card:nth-child(2) {
+            transition-delay: 0.18s;
+        }
+
+
+        /* =========================
+           CONTACT
+        ========================= */
+
+        .contact-box {
+            margin-top: 45px;
+
+            padding: 35px;
+
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+
+            background: rgba(255,255,255,0.025);
+        }
+
+        .contact-links {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+
+            margin-top: 25px;
+        }
+
+        .contact-link {
+            padding: 16px;
+
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+
+            background: rgba(255,255,255,0.035);
+
+            color: #c4c5ca;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            text-align: center;
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-4px);
+
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(255,255,255,0.18);
+
+            color: #fff;
+        }
+
+        .coming-soon {
+            opacity: 0.45;
+            cursor: default;
+        }
+
+        .coming-soon:hover {
+            transform: none;
+            background: rgba(255,255,255,0.035);
+            border-color: rgba(255,255,255,0.08);
+            color: #c4c5ca;
+        }
+
+
+        /* =========================
+           SCROLL ANIMATIONS
+        ========================= */
+
+        .reveal {
+            opacity: 0;
+
+            transform:
+                translateY(45px)
+                scale(0.97);
+
+            filter: blur(4px);
+
+            transition:
+                opacity 0.8s cubic-bezier(.22,1,.36,1),
+                transform 0.8s cubic-bezier(.22,1,.36,1),
+                filter 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+
+            filter: blur(0);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 40px 0 35px;
+
+            border-top: 1px solid rgba(255,255,255,0.06);
+
+            color: #666871;
+
+            font-size: 12px;
+        }
+
+        .footer-inner {
+            width: min(1050px, calc(100% - 40px));
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+
+        /* =========================
+           TIMEZONE
+        ========================= */
+
+        .timezone {
+            position: fixed;
+
+            right: 20px;
+            bottom: 18px;
+
+            z-index: 15;
+
+            padding: 8px 11px;
+
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+
+            background: rgba(7,8,11,0.72);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            color: #777982;
+
+            font-size: 11px;
+            font-weight: 600;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .nav-container {
+                height: 65px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 85px 0;
+            }
+
+            .hero h1 {
+                letter-spacing: -5px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .business {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .container {
+                width: min(100% - 28px, 1050px);
+            }
+
+            .hero h1 {
+                font-size: 68px;
+                letter-spacing: -4px;
+            }
+
+            .hero-sub {
+                font-size: 14px;
+            }
+
+            .card {
+                padding: 23px;
+            }
+
+            .contact-box {
+                padding: 24px;
+            }
+
+            .timezone {
+                right: 12px;
+                bottom: 12px;
+            }
+        }
+
+
+        /* =========================
+           REDUCED MOTION
+        ========================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+                filter: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <canvas id="network"></canvas>
+    <div class="background-overlay"></div>
+
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+
+            <a href="#top" class="logo">
+                Colvio
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#business">Business</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <main id="top">
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    Developer • Creator • Entrepreneur
+                </div>
+
+                <h1>
+                    <span>Colvio</span>
+                </h1>
+
+                <p class="hero-sub">
+                    I build games, mods, digital experiences, and projects
+                    that turn ideas into something people can actually use.
+                </p>
+
+                <a
+                    class="button project-button"
+                    href="#projects"
+                >
+                    Explore My Projects
+                    <span class="arrow">→</span>
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT -->
+        <section id="about">
+
+            <div class="container">
+
+                <div class="about-grid">
+
+                    <div class="reveal">
+
+                        <div class="section-label">
+                            01 / About Me
+                        </div>
+
+                        <h2 class="section-title">
+                            Building ideas into reality.
+                        </h2>
+
+                    </div>
+
+                    <div class="about-text reveal">
+
+                        <p>
+                            I'm Colvio, a developer and creator interested
+                            in building games, mods, digital experiences,
+                            and communities.
+                        </p>
+
+                        <p>
+                            I work with projects involving GTA, Roblox,
+                            Minecraft, Discord, and other platforms. I also
+                            enjoy 3D modeling and creating systems that make
+                            projects feel polished and complete.
+                        </p>
+
+                        <p>
+                            I'm constantly learning, experimenting, and
+                            turning new ideas into projects.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SKILLS -->
+        <section id="skills">
+
+            <div class="container">
+
+                <div class="reveal">
+
+                    <div class="section-label">
+                        02 / Skills
+                    </div>
+
+                    <h2 class="section-title">
+                        What I work with.
+                    </h2>
+
+                    <p class="section-text">
+                        A growing set of technical and creative skills
+                        developed through personal projects and experimentation.
+                    </p>
+
+                </div>
+
+
+                <div class="skills reveal">
+
+                    <div class="skill">Game Development</div>
+                    <div class="skill">3D Modeling</div>
+                    <div class="skill">Game Modding</div>
+                    <div class="skill">Roblox Development</div>
+                    <div class="skill">GTA Modding</div>
+                    <div class="skill">Minecraft Modding</div>
+                    <div class="skill">Luau</div>
+                    <div class="skill">HTML</div>
+                    <div class="skill">CSS</div>
+                    <div class="skill">JavaScript</div>
+                    <div class="skill">Discord Bot Development</div>
+                    <div class="skill">UI/UX Design</div>
+                    <div class="skill">Game Design</div>
+                    <div class="skill">Community Management</div>
+                    <div class="skill">Creative Development</div>
+                    <div class="skill">Project Development</div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROJECTS -->
+        <section id="projects">
+
+            <div class="container">
+
+                <div class="reveal">
+
+                    <div class="section-label">
+                        03 / Projects
+                    </div>
+
+                    <h2 class="section-title">
+                        Things I'm building.
+                    </h2>
+
+                    <p class="section-text">
+                        A selection of projects I've created, developed,
+                        or am currently working toward.
+                    </p>
+
+                </div>
+
+
+                <div class="grid">
+
+                    <!-- PROJECT 1 -->
+                    <article class="card reveal">
+
+                        <div class="card-number">
+                            01
+                        </div>
+
+                        <h3>
+                            Paintball Shenanigans
+                        </h3>
+
+                        <p>
+                            A competitive game where players face off to
+                            color as much of the map as possible while
+                            battling other players through fast-paced
+                            close-range combat.
+                        </p>
+
+                        <span class="card-tag">
+                            Game Development
+                        </span>
+
+                    </article>
+
+
+                    <!-- PROJECT 2 -->
+                    <article class="card reveal">
+
+                        <div class="card-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Discord Security Bot
+                        </h3>
+
+                        <p>
+                            A powerful Discord security and management bot
+                            designed around tickets, moderation, verification,
+                            server protection, and community management.
+                        </p>
+
+                        <span class="card-tag">
+                            Discord Development
+                        </span>
+
+                    </article>
+
+
+                    <!-- PROJECT 3 -->
+                    <article class="card reveal">
+
+                        <div class="card-number">
+                            03
+                        </div>
+
+                        <h3>
+                            Unannounced Project
+                        </h3>
+
+                        <p>
+                            Something new is currently being developed.
+                            More information will be released when the
+                            project is ready.
+                        </p>
+
+                        <span class="card-tag">
+                            Coming Soon
+                        </span>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ENTREPRENEURSHIP -->
+        <section id="business">
+
+            <div class="container">
+
+                <div class="reveal">
+
+                    <div class="section-label">
+                        04 / Entrepreneurship
+                    </div>
+
+                    <h2 class="section-title">
+                        More than just code.
+                    </h2>
+
+                    <p class="section-text">
+                        I also enjoy building things outside of software
+                        and turning ideas into real-world opportunities.
+                    </p>
+
+                </div>
+
+
+                <div class="business">
+
+                    <article class="card reveal">
+
+                        <div class="card-number">
+                            01
+                        </div>
+
+                        <h3>
+                            Cleaning Business
+                        </h3>
+
+                        <p>
+                            A local service focused primarily on professional
+                            trash-can cleaning and car detailing. The goal is
+                            simple: provide useful services while building
+                            something of my own.
+                        </p>
+
+                        <span class="card-tag">
+                            Entrepreneurship
+                        </span>
+
+                    </article>
+
+
+                    <article class="card reveal">
+
+                        <div class="card-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Turning Ideas Into Action
+                        </h3>
+
+                        <p>
+                            Whether it's software, games, services, or
+                            creative projects, I enjoy taking an idea and
+                            developing it into something real.
+                        </p>
+
+                        <span class="card-tag">
+                            Creator
+                        </span>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTACT -->
+        <section id="contact">
+
+            <div class="container">
+
+                <div class="reveal">
+
+                    <div class="section-label">
+                        05 / Contact
+                    </div>
+
+                    <h2 class="section-title">
+                        Let's connect.
+                    </h2>
+
+                    <p class="section-text">
+                        Want to see what I'm working on or get in touch?
+                        You can find me here.
+                    </p>
+
+                </div>
+
+
+                <div class="contact-box reveal">
+
+                    <div class="contact-links">
+
+                        <a
+                            class="contact-link"
+                            href="https://github.com/colvio"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            GitHub
+                        </a>
+
+
+                        <a
+                            class="contact-link"
+                            href="https://discord.com/users/990698400838213682"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Discord
+                        </a>
+
+
+                        <span class="contact-link coming-soon">
+                            Twitter — Coming Soon
+                        </span>
+
+
+                        <span class="contact-link coming-soon">
+                            Instagram — Coming Soon
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="footer-inner">
+
+            <span>
+                © 2026 Colvio. All rights reserved.
+            </span>
+
+            <span>
+                Built with HTML, CSS & JavaScript.
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Timezone -->
+    <div class="timezone" id="timezone">
+        CDT • --:--:--
+    </div>
+
+
+    <script>
+
+        /* ==========================================
+           ANIMATED DOT / CONNECTION BACKGROUND
+        ========================================== */
+
+        const canvas = document.getElementById("network");
+        const ctx = canvas.getContext("2d");
+
+        let particles = [];
+
+        function resizeCanvas() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+
+            canvas.style.width = window.innerWidth + "px";
+            canvas.style.height = window.innerHeight + "px";
+
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            createParticles();
+        }
+
+
+        function createParticles() {
+
+            particles = [];
+
+            const amount = Math.min(
+                Math.floor(window.innerWidth / 10),
+                120
+            );
+
+            for (let i = 0; i < amount; i++) {
+
+                particles.push({
+
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+
+                    vx: (Math.random() - 0.5) * 0.35,
+                    vy: (Math.random() - 0.5) * 0.35,
+
+                    radius:
+                        Math.random() * 1.4 + 0.5
+
+                });
+
+            }
+        }
+
+
+        function animateNetwork() {
+
+            ctx.clearRect(
+                0,
+                0,
+                window.innerWidth,
+                window.innerHeight
+            );
+
+
+            for (const particle of particles) {
+
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+
+
+                if (
+                    particle.x < -20 ||
+                    particle.x > window.innerWidth + 20
+                ) {
+                    particle.vx *= -1;
+                }
+
+
+                if (
+                    particle.y < -20 ||
+                    particle.y > window.innerHeight + 20
+                ) {
+                    particle.vy *= -1;
+                }
+
+
+                ctx.beginPath();
+
+                ctx.arc(
+                    particle.x,
+                    particle.y,
+                    particle.radius,
+                    0,
+                    Math.PI * 2
+                );
+
+                ctx.fillStyle =
+                    "rgba(255,255,255,0.55)";
+
+                ctx.fill();
+
+            }
+
+
+            const maxDistance =
+                window.innerWidth < 700
+                    ? 95
+                    : 125;
+
+
+            for (let i = 0; i < particles.length; i++) {
+
+                for (
+                    let j = i + 1;
+                    j < particles.length;
+                    j++
+                ) {
+
+                    const a = particles[i];
+                    const b = particles[j];
+
+                    const dx = a.x - b.x;
+                    const dy = a.y - b.y;
+
+                    const distance =
+                        Math.sqrt(
+                            dx * dx +
+                            dy * dy
+                        );
+
+
+                    if (distance < maxDistance) {
+
+                        const opacity =
+                            (1 - distance / maxDistance)
+                            * 0.16;
+
+
+                        ctx.beginPath();
+
+                        ctx.moveTo(
+                            a.x,
+                            a.y
+                        );
+
+                        ctx.lineTo(
+                            b.x,
+                            b.y
+                        );
+
+                        ctx.strokeStyle =
+                            `rgba(255,255,255,${opacity})`;
+
+                        ctx.lineWidth = 0.7;
+
+                        ctx.stroke();
+
+                    }
+
+                }
+
+            }
+
+
+            requestAnimationFrame(animateNetwork);
+        }
+
+
+        window.addEventListener(
+            "resize",
+            resizeCanvas
+        );
+
+        resizeCanvas();
+        animateNetwork();
+
+
+        /* ==========================================
+           SCROLL REVEAL ANIMATIONS
+        ========================================== */
+
+        const revealElements =
+            document.querySelectorAll(".reveal");
+
+
+        const revealObserver =
+            new IntersectionObserver(
+
+                (entries) => {
+
+                    entries.forEach((entry) => {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add(
+                                "visible"
+                            );
+
+                        }
+
+                    });
+
+                },
+
+                {
+                    threshold: 0.12,
+                    rootMargin: "0px 0px -60px 0px"
+                }
+
+            );
+
+
+        revealElements.forEach((element) => {
+
+            revealObserver.observe(element);
+
+        });
+
+
+        /* ==========================================
+           TIMEZONE CLOCK
+        ========================================== */
+
+        const timezone =
+            document.getElementById("timezone");
+
+
+        function updateClock() {
+
+            const now = new Date();
+
+
+            const time =
+                new Intl.DateTimeFormat(
+                    "en-US",
+                    {
+                        timeZone: "America/Chicago",
+                        hour: "numeric",
+                        minute: "2-digit",
+                        second: "2-digit",
+                        hour12: true
+                    }
+                ).format(now);
+
+
+            const parts =
+                new Intl.DateTimeFormat(
+                    "en-US",
+                    {
+                        timeZone: "America/Chicago",
+                        timeZoneName: "short"
+                    }
+                ).formatToParts(now);
+
+
+            const zone =
+                parts.find(
+                    part => part.type === "timeZoneName"
+                )?.value || "CDT";
+
+
+            timezone.textContent =
+                `${zone} • ${time}`;
+        }
+
+
+        updateClock();
+
+        setInterval(
+            updateClock,
+            1000
+        );
+
+
+        /* ==========================================
+           SMOOTH INTERNAL LINKS
+        ========================================== */
+
+        document
+            .querySelectorAll('a[href^="#"]')
+            .forEach((link) => {
+
+                link.addEventListener(
+                    "click",
+                    (event) => {
+
+                        const target =
+                            document.querySelector(
+                                link.getAttribute("href")
+                            );
+
+
+                        if (!target) return;
+
+                        event.preventDefault();
+
+
+                        target.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                    }
+                );
+
+            });
+
+    </script>
+
+</body>
+</html>
